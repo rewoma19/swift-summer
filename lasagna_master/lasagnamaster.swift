@@ -28,10 +28,33 @@ func quantities(layers: String...) -> (noodles: Int, sauce: Double) {
   return (noodles: noodlesCount, sauce: sauceCount)
 }
 
-func toOz(_ amount: inout (noodles: Int, sauce: Double)) -> (Int, Double) {
-  
+func toOz(_ amount: inout (noodles: Int, sauce: Double)) {
+  amount.sauce *= 33.814
 }
 
-func redWine() {
-  
+var amount = (noodles: 9, sauce: 0.8)
+
+
+func redWine(layers: String...) -> Bool {
+  func ingredientCount(_ ingredient: String) -> Int {
+    var count: Int = 0
+    for layer in layers {
+      if layer.lowercased() == ingredient {
+        count += 1
+      }
+    }
+
+    return count
+  }
+
+  let mozzarellaCount: Int = ingredientCount("mozzarella")
+  let ricottaCount: Int = ingredientCount("ricotta")
+  let bechamelCount: Int = ingredientCount("béchamel")
+  let sauceCount: Int = ingredientCount("sauce")
+  let meatCount: Int = ingredientCount("meat")
+
+  let whiteLayers: Int = mozzarellaCount + ricottaCount + bechamelCount
+  let redLayers: Int = sauceCount + meatCount
+
+  return redLayers >= whiteLayers
 }
